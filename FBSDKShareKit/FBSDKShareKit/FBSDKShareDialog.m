@@ -334,13 +334,8 @@ FBSDK_STATIC_INLINE void FBSDKShareDialogValidateShareExtensionSchemeRegisteredF
   if (!composeViewControllerClass) {
     return NO;
   }
-  // iOS 11 returns NO for `isAvailableForServiceType` but it will still work
   NSString *facebookServiceType = fbsdkdfl_SLServiceTypeFacebook();
-  NSOperatingSystemVersion iOS11Version = { .majorVersion = 11, .minorVersion = 0, .patchVersion = 0 };
-  if (![FBSDKInternalUtility isOSRunTimeVersionAtLeast:iOS11Version] && ![composeViewControllerClass isAvailableForServiceType:facebookServiceType]) {
-    return NO;
-  }
-  return YES;
+  return [composeViewControllerClass isAvailableForServiceType:facebookServiceType];
 }
 
 - (BOOL)_canAttributeThroughShareSheet
